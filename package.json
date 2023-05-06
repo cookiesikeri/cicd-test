@@ -8,7 +8,7 @@
         "start": "nodemon server.js",
         "dev": "nodemon server.js"
     },
-    "author": "ikeri",
+    "author": "ikeri-eben",
     "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
