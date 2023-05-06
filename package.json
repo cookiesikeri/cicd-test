@@ -1,0 +1,22 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "CTSE Assignment 3",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon server.js",
+        "dev": "nodemon server.js"
+    },
+    "author": "ikeri",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "ejs": "^3.1.7",
+        "express": "^4.18.1",
+        "mongoose": "^6.3.3",
+        "nodemon": "^2.0.16",
+        "path": "^0.12.7"
+    }
+}
