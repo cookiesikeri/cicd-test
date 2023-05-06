@@ -6,7 +6,8 @@
     "type": "module",
     "scripts": {
         "start": "nodemon server.js",
-        "dev": "nodemon server.js"
+        "dev": "nodemon server.js",
+        "sonar": "ts-node sonar-scanner.ts"
     },
     "author": "ikeri-eben",
     "license": "ISC",
@@ -18,5 +19,8 @@
         "mongoose": "^6.3.3",
         "nodemon": "^2.0.16",
         "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "sonarqube-scanner": "^3.0.1"
     }
 }
