@@ -8,30 +8,30 @@ import { fileURLToPath } from 'url';
 import { getUsers, addUser } from './controllers/user.js';
 // router = require('./routes/user.js');
 
-const app = express(); 
+const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 8070;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.set("view engine","ejs");
+app.set("view engine", "ejs");
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(
+    import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //routes
 app.post('/user', addUser);
 app.get('/user', getUsers);
-app.get('/', async (req,res) => {
+app.get('/', async(req, res) => {
     var users = await getUsers();
-    res.render('user', {users: users});
+    res.render('user', { users: users });
 });
 
 const URL = process.env.MONGODB_URL;
 
-
-mongoose.connect(URL,{
+mongoose.connect(URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
