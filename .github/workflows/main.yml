@@ -23,13 +23,14 @@ jobs:
       - name: Build user service docker image
         run: docker build . --file Dockerfile -t "$DOCKER_USERNAME/$PRODUCT_REPO_NAME:latest"
 
-      - name: Image Scan
-        uses: aquasecurity/trivy-action@master
+      - name: Run Trivy vulnerability scanner and create GitHub issues
+        uses: knqyf263/trivy-issue-action@v0.0.5
         with:
-          image-ref: '${{ steps.meta.outputs.tags }}-${{ steps.build-image.outputs.tag }}'
-          format: 'table'
+          assignee: knqyf263
+          severity: CRITICAL
+          skip-dirs: integration,examples,pkg
+          label: kind/security
           output: 'trivy-image-results'
-          severity: 'CRITICAL,HIGH'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push user service docker image
