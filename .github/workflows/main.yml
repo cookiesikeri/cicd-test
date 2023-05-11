@@ -29,14 +29,26 @@ jobs:
       - name: Build user service docker image
         run: docker build . --file Dockerfile -t "$DOCKER_USERNAME/$PRODUCT_REPO_NAME:latest"
 
-      - name: Run Trivy vulnerability scanner and create GitHub issues
-        uses: knqyf263/trivy-issue-action@v0.0.5
+      # - name: Run Trivy vulnerability scanner and create GitHub issues
+      #   uses: knqyf263/trivy-issue-action@v0.0.5
+      #   with:
+      #     assignee: knqyf263
+      #     severity: CRITICAL
+      #     skip-dirs: integration,examples,pkg
+      #     label: kind/security
+      #     output: 'trivy-image-results'
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          assignee: knqyf263
-          severity: CRITICAL
-          skip-dirs: integration,examples,pkg
-          label: kind/security
-          output: 'trivy-image-results'
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push user service docker image
