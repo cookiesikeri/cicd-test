@@ -1,4 +1,10 @@
 name: Docker Build Deploy
+permissions:
+  id-token: write # required to use OIDC authentication
+  contents: write # required
+  actions: read
+  security-events: write
+  statuses: write
 on:
   push:
     branches: [main]
